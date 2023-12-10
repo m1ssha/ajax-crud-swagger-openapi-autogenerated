@@ -1,0 +1,127 @@
+openapi: 3.0.0
+info:
+  title: AJAX CRUD
+  version: 0.0.1
+servers:
+- url: /
+paths:
+  /items:
+    get:
+      summary: Получение элементов из базы данных
+      operationId: itemsGET
+      responses:
+        "200":
+          description: Успешный запрос
+          content:
+            application/json:
+              example:
+              - id: 1
+                value: Item 1
+              - id: 2
+                value: Item 2
+              - id: 3
+                value: Item 3
+      x-swagger-router-controller: Default
+    put:
+      summary: Обновление элемента в базе данных
+      operationId: itemsPUT
+      parameters:
+      - name: id
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: integer
+      - name: value
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            example:
+            - id: 1
+              value: New value
+        required: true
+      responses:
+        "200":
+          description: Элемент успешно обновлен
+          content:
+            application/json:
+              example:
+              - id: 1
+                value: New value
+              - id: 2
+                value: Item 2
+              - id: 3
+                value: Item 3
+              - id: 4
+                value: Item 4
+        "400":
+          description: Не удалось обновить элемент
+      x-swagger-router-controller: Default
+    post:
+      summary: Добавление элемента в базу данных
+      operationId: itemsPOST
+      parameters:
+      - name: value
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            example:
+              value: Item 4
+        required: true
+      responses:
+        "200":
+          description: Элемент успешно добавлен в базу данных
+          content:
+            application/json:
+              example:
+              - id: 1
+                value: Item 1
+              - id: 2
+                value: Item 2
+              - id: 3
+                value: Item 3
+              - id: 4
+                value: Item 4
+        "400":
+          description: Не удалось добавить элемент в базу данных
+      x-swagger-router-controller: Default
+    delete:
+      summary: Удаление элемента из базы данных
+      operationId: itemsDELETE
+      parameters:
+      - name: id
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: Элемент успешно удален
+          content:
+            application/json:
+              example:
+              - id: 2
+                value: Item 2
+              - id: 3
+                value: Item 3
+              - id: 4
+                value: Item 4
+        "400":
+          description: Не удалось удалить элемент
+      x-swagger-router-controller: Default
+components: {}
